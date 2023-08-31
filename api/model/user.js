@@ -1,13 +1,14 @@
 const db = require("../config")
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 const { createToken } = require("../middleware/AuthenticateUser");
 
 class Users {
     // Retrieve all users
     fetchUsers(req, res) {
         const query = `
-      SELECT userID, firstName, lastName, userAge, Gender, emailAdd, userProfile, Userpic 
-      FROM Users
+      SELECT UserID, firstName, lastName, age, emailadd, UserImg, userPass
+      FROM Users;
     `;
         db.query(query, (err, results) => {
             if (err) throw err;
@@ -21,7 +22,7 @@ class Users {
     // Retrieve a single user by ID
     fetchUser(req, res) {
         const query = `
-      SELECT userID, firstName, lastName, userAge, Gender, emailAdd, userProfile, Userpic
+      SELECT UserID, firstName, lastName, age, emailadd, UserImg, userPass
       FROM Users
       WHERE userID = ?;
     `;
@@ -60,12 +61,13 @@ class Users {
           const salt = await bcrypt.genSalt(saltRounds);
     
           // Encrypt the password using the generated salt
-          const hashedPassword = await bcrypt.hash(data.userPass, salt);
+          // const hashedPassword = await bcrypt.hash(data.userPass, salt);
+          data.userPass = await bcrypt.hash(data.userPass, salt)
     
           // Create a user object with email and hashed password
           const user = {
-            emailAdd: data.emailAdd,
-            userPass: hashedPassword,
+            emailAdd: data.emailadd,
+            userPass: data.userPass,
           };
     
           // Insert the user data into the database
@@ -73,7 +75,7 @@ class Users {
             INSERT INTO Users
             SET ?;
           `;
-          db.query(query, user, (err) => {
+          db.query(query, [data], (err) => {
             if (err) {
               console.error(err);
               res.status(500).json({
@@ -107,9 +109,9 @@ class Users {
 
             // Query the database to get the user's hashed password
             const query = `
-            SELECT userID, emailAdd, userPass
+            SELECT userID, emailadd, userPass
             FROM Users
-            WHERE emailAdd = ?;
+            WHERE emailadd = ?;
           `;
             db.query(query, [emailAdd], async (err, result) => {
                 if (err) {
@@ -166,7 +168,7 @@ updateUser(req, res) {
     const query = `
       UPDATE Users
       SET ?
-      WHERE userID = ?;
+      WHERE UserID = ?;
     `;
     db.query(query, [req.body, req.params.id], (err) => {
         if (err) throw err;
@@ -181,7 +183,7 @@ updateUser(req, res) {
 deleteUser(req, res) {
     const query = `
       DELETE FROM Users
-      WHERE userID = ?;
+      WHERE UserID = ?;
     `;
     db.query(query, [req.params.id], (err) => {
         if (err) throw err;

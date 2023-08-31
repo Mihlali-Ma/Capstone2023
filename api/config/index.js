@@ -5,10 +5,10 @@ const { createPool } = require("mysql");
 const connection = createPool({
     host: process.env.dbHost,
     database: process.env.dbName,
-    user: process.env.dbUsr,
+    user: process.env.dbUser,
     password: process.env.dbPwd,
     multipleStatements: true,
-    connectionLimit: 30,
+    connectionLimit: 50,
 });
 
-module.exports = connection;
+module.exports = connection

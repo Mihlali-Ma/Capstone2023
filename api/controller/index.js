@@ -35,9 +35,7 @@ routes.post('/login', bodyParser.json(), (req, res) => {
 
 // 
 
-// routes.put('/user/:id', bodyParser.json(), (req, res) => {
-//     users.updateUser(req, res);
-// });
+
 
 routes.patch('/user/:id', bodyParser.json(), (req, res) => {
     users.updateUser(req, res);
@@ -63,6 +61,7 @@ routes.get('/products', (req, res) => {
 routes.get('/product/:id', (req, res) => {
     products.fetchProduct(req, res);
 });
+
 
 // Update a product
 routes.put('/product/:id', bodyParser.json(), (req, res) => {

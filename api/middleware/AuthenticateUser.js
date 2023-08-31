@@ -1,18 +1,21 @@
-const { sign, verify } = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
 require("dotenv").config();
 
 function createToken(user) {
-  return sign(
-    {
-      emailAdd: user.emailAdd,
-      userPass: user.userPass,
-    },
-    process.env.SECRET_KEY,
-    {
-      expiresIn: "1h",
-    }
-  );
+  const secretKey = 'Gameon';
+  const token = jwt.sign(user, secretKey);
+  return token;
+  // return sign(
+  //   {
+  //     emailAdd: user.emailadd,
+  //     userPass: user.userPass,
+  //   },
+  //   process.env.SECRET_KEY,
+  //   {
+  //     expiresIn: "3h",
+  //   }
+  // );
 }
 
 function verifyAToken(req, res, next) {
@@ -29,7 +32,7 @@ function verifyAToken(req, res, next) {
     }
 
     // Verify the token
-    verify(token, process.env.SECRET_KEY, (err, decoded) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
         return res.status(401).json({
           status: 401,
@@ -50,7 +53,7 @@ function verifyAToken(req, res, next) {
 
 async function authenticateUser(req, res) {
   try {
-    const { emailAdd, userPass } = req.body;
+    const { emailadd, userPass } = req.body;
 
     // Fetch the user's hashed password from your database based on their email
     const hashedPasswordFromDatabase = "";
@@ -65,7 +68,7 @@ async function authenticateUser(req, res) {
     }
 
     // User is authenticated, generate a JWT token
-    const user = { emailAdd };
+    const user = { emailadd };
     const token = createToken(user);
 
     // Send the token to the client
