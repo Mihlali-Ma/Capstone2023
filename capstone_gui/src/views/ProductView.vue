@@ -12,7 +12,7 @@
               alt="..."
             />
             <div class="card-body">
-              <h4 class="text-start">Avatar</h4>
+              <h4 class="text-start" style="color: yellow">Avatar</h4>
               <p class="card-text text-start">Action</p>
               <p class="card-text text-start" style="font-size: small">13LV</p>
             </div>
