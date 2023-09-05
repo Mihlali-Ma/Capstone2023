@@ -59,7 +59,7 @@
                 <a class="link" href="/">HOME</a>
               </li>
               <li class="nav-item">
-                <a class="link" href="/product">Movies</a>
+                <a class="link" href="/products">Movies</a>
               </li>
               <li class="nav-item">
                 <router-link to="/testimonial">Testimonial</router-link>

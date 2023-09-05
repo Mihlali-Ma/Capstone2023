@@ -2,32 +2,43 @@
   <div>
     <navbar-comp />
     <div class="row">
-      <div class="col">
+      <div class="col" v-for="product in products" :key="product.movieID">
         <a href="/ppp">
           <div class="card" style="border-radius: none">
             <img
-              src="https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg"
+              :src="product.MoviePoster"
               class="card-img-top"
               style="border-radius: none"
               alt="..."
             />
             <div class="card-body">
-              <h4 class="text-start" style="color: yellow">Avatar</h4>
-              <p class="card-text text-start">Action</p>
-              <p class="card-text text-start" style="font-size: small">13LV</p>
+              <h4 class="text-start" style="color: yellow">{{ product.MovieName }}</h4>
+              <p class="card-text text-start">{{ product.agerating }}PV</p>
+              <p class="card-text text-start" style="font-size: small">
+                {{ product.Ticket_price }} ZAR
+              </p>
             </div>
           </div>
         </a>
       </div>
     </div>
+    <footer-comp/>
   </div>
 </template>
 
 <script>
 import NavbarComp from "../components/NavbarComp.vue";
-
+import FooterComp from "../components/FooterComp.vue";
 export default {
-  components: { NavbarComp },
+  components: { NavbarComp, FooterComp },
+  computed: {
+    products() {
+      return this.$store.state.Products;
+    },
+  },
+  mounted() {
+    this.$store.dispatch("fetchProducts");
+  },
 };
 </script>
 
