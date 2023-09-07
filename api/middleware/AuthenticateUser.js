@@ -3,19 +3,19 @@ const bcrypt = require("bcrypt")
 require("dotenv").config();
 
 function createToken(user) {
-  const secretKey = 'Gameon';
+  const secretKey = 'Mihlali@$97';
   const token = jwt.sign(user, secretKey);
   return token;
-  // return sign(
-  //   {
-  //     emailAdd: user.emailadd,
-  //     userPass: user.userPass,
-  //   },
-  //   process.env.SECRET_KEY,
-  //   {
-  //     expiresIn: "3h",
-  //   }
-  // );
+  return sign(
+    {
+      emailAdd: user.emailadd,
+      userPass: user.userPass,
+    },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: "3h",
+    }
+  );
 }
 
 function verifyAToken(req, res, next) {
