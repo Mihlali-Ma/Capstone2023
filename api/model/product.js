@@ -12,7 +12,9 @@ class Products {
       MovieCast: req.body.MovieCast,
       MovieWriter: req.body.MovieWriter,
       MovieDirector: req.body.MovieDirector,
-      MovieMusic: req.body.MovieMusic
+      MovieMusic: req.body.MovieMusic,
+      MovieCategory: req.body.MovieCategory,
+      MovieDesc:  req.body.MovieDesc
     };
 
     const query = 'INSERT INTO Products SET ?';
@@ -28,7 +30,7 @@ class Products {
 
   // Retrieve all products
   fetchProducts(req, res) {
-    const query = 'SELECT movieID, MovieName, MoviePoster, Trailor, agerating, Ticket_price, MovieCast, MovieWriter, MovieDirector, MovieMusic FROM Products';
+    const query = 'SELECT movieID, MovieName, MoviePoster, Trailor, agerating, Ticket_price, MovieCast, MovieWriter, MovieDirector, MovieMusic, MovieCategory, MovieDesc FROM Products';
     db.query(query, (err, results) => {
       if (err) throw err;
       res.json({
@@ -40,7 +42,7 @@ class Products {
 
   // Retrieve a single product by ID
   fetchProduct(req, res) {
-    const query = `SELECT movieID, MovieName, MoviePoster, Trailor, agerating, Ticket_price, MovieCast, MovieWriter, MovieDirector, MovieMusic  FROM Products WHERE movieID = ${req.params.id}`;
+    const query = `SELECT movieID, MovieName, MoviePoster, Trailor, agerating, Ticket_price, MovieCast, MovieWriter, MovieDirector, MovieMusic, MovieCategory, MovieDesc  FROM Products WHERE movieID = ${req.params.id}`;
     db.query(query, (err, result) => {
       if (err) throw err;
       if (result.length === 0) {
@@ -68,7 +70,9 @@ class Products {
       MovieCast: req.body.MovieCast,
       MovieWriter: req.body.MovieWriter,
       MovieDirector: req.body.MovieDirector,
-      MovieMusic: req.body.MovieMusic
+      MovieMusic: req.body.MovieMusic,
+      MovieCategory: req.body.MovieCategory,
+      MovieDesc:  req.body.MovieDesc
     };
 
     const query = `UPDATE Products SET ? WHERE movieID = ${req.params.id}`;
