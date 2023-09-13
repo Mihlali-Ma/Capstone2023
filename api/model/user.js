@@ -102,124 +102,66 @@ class Users {
         }
       }
     
-    async function login(req, res) {
-  try {
-    const { emailAdd, userPass } = req.body;
 
-    // Fetch the user's hashed password from your database based on their email
-    const query = `
-      SELECT userID, emailadd, userPass
-      FROM Users
-      WHERE emailadd = ?;
-    `;
+    async login(req, res) {
+        try {
+            const { emailAdd, userPass } = req.body;
 
-    db.query(query, [emailAdd], async (err, result) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({
-          status: 500,
-          msg: "Login failed.",
-        });
-      }
+            // Query the database to get the user's hashed password
+            const query = `
+            SELECT userID, emailadd, userPass
+            FROM Users
+            WHERE emailadd = ?;
+          `;
+            db.query(query, [emailAdd], async (err, result) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({
+                        status: 500,
+                        msg: "Login failed.",
+                    });
+                }
 
-      if (!result?.length) {
-        return res.status(401).json({
-          status: 401,
-          msg: "Invalid email or password.",
-        });
-      }
+                if (!result?.length) {
+                    return res.status(401).json({
+                        status: 401,
+                        msg: "Invalid email or password.",
+                    });
+                }
 
-      const hashedPasswordFromDatabase = result[0].userPass;
+                const hashedPassword = result[0].userPass;
 
-      // Compare the provided password with the hashed password from the database
-      const passwordMatch = await bcrypt.compare(userPass, hashedPasswordFromDatabase);
+                // Compare the provided password with the hashed password from the database
+                const passwordMatch = await bcrypt.compare(userPass, hashedPassword);
 
-      if (!passwordMatch) {
-        return res.status(401).json({
-          status: 401,
-          msg: "Invalid email or password.",
-        });
-      }
+                if (!passwordMatch) {
+                    return res.status(401).json({
+                        status: 401,
+                        msg: "Invalid email or password.",
+                    });
+                }
 
-      // User is authenticated, generate a JWT token
-      const user = { emailAdd };
-      const token = createToken(user);
+                // Create a token for the authenticated user
+                const user = {
+                    emailAdd,
+                };
+                const token = createToken(user);
 
-      // Send the token to the client
-      res.status(200).json({
-        status: 200,
-        msg: "Logged in",
-        token: token,
-        result: result[0],
-      });
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      status: 500,
-      msg: "Login failed.",
-         });
-      }
+                res.status(200).json({
+                    status: 200,
+                    msg: "Logged in",
+                    token: token,
+                    result: result[0],
+                });
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                status: 500,
+                msg: "Login failed.",
+            });
+        }
     }
-    // async login(req, res) {
-    //     try {
-    //         const { emailAdd, userPass } = req.body;
-
-    //         // Query the database to get the user's hashed password
-    //         const query = `
-    //         SELECT userID, emailadd, userPass
-    //         FROM Users
-    //         WHERE emailadd = ?;
-    //       `;
-    //         db.query(query, [emailAdd], async (err, result) => {
-    //             if (err) {
-    //                 console.error(err);
-    //                 return res.status(500).json({
-    //                     status: 500,
-    //                     msg: "Login failed.",
-    //                 });
-    //             }
-
-    //             if (!result?.length) {
-    //                 return res.status(401).json({
-    //                     status: 401,
-    //                     msg: "Invalid email or password.",
-    //                 });
-    //             }
-
-    //             const hashedPassword = result[0].userPass;
-
-    //             // Compare the provided password with the hashed password from the database
-    //             const passwordMatch = await bcrypt.compare(userPass, hashedPassword);
-
-    //             if (!passwordMatch) {
-    //                 return res.status(401).json({
-    //                     status: 401,
-    //                     msg: "Invalid email or password.",
-    //                 });
-    //             }
-
-    //             // Create a token for the authenticated user
-    //             const user = {
-    //                 emailAdd,
-    //             };
-    //             const token = createToken(user);
-
-    //             res.status(200).json({
-    //                 status: 200,
-    //                 msg: "Logged in",
-    //                 token: token,
-    //                 result: result[0],
-    //             });
-    //         });
-    //     } catch (err) {
-    //         console.error(err);
-    //         res.status(500).json({
-    //             status: 500,
-    //             msg: "Login failed.",
-    //         });
-    //     }
-    // }
 
 // Update a user
 updateUser(req, res) {
