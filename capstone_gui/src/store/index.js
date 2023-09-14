@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 
-const Url ="https://movie-vnl6.onrender.com"
+const Url ="https://movie-vnl6.onrender.com/"
 export default createStore({
   state: {
     users: null,
@@ -11,6 +11,9 @@ export default createStore({
     spinner: false,
     token: null,
     msg: null,
+    loggedIn: false,
+    errorMessage: '',
+
   },
   getters: {
   },
@@ -18,12 +21,18 @@ export default createStore({
     setUsers(state, value) {
       state.users = value;
     },
+    deleteUserById(state, id) {
+      state.users = state.users.filter(user => user.userID !== id);
+    },
 
     addProduct(state, data) {
       state.Products = data
     },
     setUser(state, value) {
       state.User = value
+    },
+    register(state, newUser) {
+      state.users.push(newUser);
     },
     setProducts(state, value) {
       state.Products = value
@@ -40,6 +49,21 @@ export default createStore({
     },
     setMsg(state, msg) {
       state.msg = msg;
+    },
+    logout(state) {
+      state.loggedIn = false;
+      state.User = null;
+      state.errorMessage = '';
+    },
+    loginSuccess(state, user) {
+      state.loggedIn = true;
+      state.User = user;
+      state.errorMessage = '';
+    },
+    loginFailure(state, errorMessage) {
+      state.loggedIn = false;
+      state.User = null;
+      state.errorMessage = errorMessage;
     },
   },
   actions: {
@@ -95,7 +119,7 @@ export default createStore({
     async fetchProducts({ commit }) {
       commit('setSpinner', true);
       try {
-        const response = await axios.get(`${Url}/products`);
+        const response = await axios.get(`${Url}products`);
         const products = response.data.results;
         commit('setProducts', products);
       } catch (error) {
@@ -104,11 +128,12 @@ export default createStore({
         commit('setSpinner', false);
       }
     },
+
     async deleteUser(context, id){
       try {
         const {msg} = (await axios.delete(`${Url}user/${id}`)).data
         if(msg) {
-          const updatedUsers = state.users.filter(user => user.userID !== id);
+          const updatedUsers = state.users.filter(user => user.UserID !== id);
           commit('setUsers', updatedUsers);
         }
       } catch (error) {
@@ -128,7 +153,108 @@ export default createStore({
           console.error('Error deleting user:', error);
       }
     },
+
+    // async register(context, newUser) {
+    //   try {
+    //     const response = await fetch(`${Url}register`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(newUser),
+    //     });
+    
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! Status: ${response.status}`);
+    //     }
+    
+    //     const data = await response.json();
+    
+    //     console.log('Response from server:', data);
+      
+    //   } catch (e) {
+    //     console.error('Error:', e.message);
+      
+    //   }
+    // }
+    async register(context, { firstName, lastName, age, emailadd, userImg, userPass }) {
+      try {
+        const response = await fetch(`${Url}register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            age,
+            emailadd,
+            userImg,
+            userPass,
+          }),
+        });
+    
+        if (response.ok) {
+          console.log('User was added successfully');
+        } else {
+          console.error('Failed to add user');
+        }
+      } catch (e) {
+        console.error('Error:', e.message);
+      }
+    },
+    async AddProducts(context, { MovieName,agerating, MovieCategory,MovieDesc, Ticket_price, MovieCast,MovieWriter,MovieDirector,MovieMusic,Trailor,MoviePoster }) {
+      try {
+        const response = await fetch(`${Url}products`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            MovieName,
+            agerating,
+            MovieCategory,
+            MovieDesc,
+            Ticket_price,
+            MovieCast,
+            MovieWriter,
+            MovieDirector,
+            MovieMusic,
+            Trailor,
+            MoviePoster
+          }),
+        });
+    
+        if (response.ok) {
+          console.log('New movie has been succefully added');
+        } else {
+          console.error('Failed to add a new movie');
+        }
+      } catch (e) {
+        console.error('Error:', e.message);
+      }
+      },
+      async SignIn({ commit }, { emailadd, userPass }) {
+        try {
+          const response = await axios.post(`${Url}login`, { emailadd, userPass });
+          
+          if (response.data.success) {
+            const user = response.data.user;
+            commit('loginSuccess', user);
+          } else {
+            commit('loginFailure', 'either email address or password submitted is incorrect ');
+          }
+        } catch (e) {
+          console.error('Login error:', e);
+          commit('loginFailure', 'failed to login user');
+        }
+      },
+      logout({ commit }) {
+        ('logout');
+      },
+    
   },
   modules: {
-  }
+  },
+  
 })

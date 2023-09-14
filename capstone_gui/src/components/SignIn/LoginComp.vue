@@ -1,5 +1,8 @@
 <template>
-  <div></div>
+  <div>
+    <a href="#">Log IN</a>
+    <a href="#">Sing Up</a>
+  </div>
 </template>
 
 <script>

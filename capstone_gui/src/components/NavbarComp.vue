@@ -2,12 +2,12 @@
   <div>
     <nav style="" class="navbar bg-transparent fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#" style="color: white">MovieMania</a>
+        <a class="navbar-brand" href="/" style="color: white">MovieMania</a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
+          data-bs-target="#offcanvasNavba                                                                                                                                                       ` r"
           aria-controls="offcanvasNavbar"
           aria-label="Toggle navigation"
         >
@@ -59,16 +59,10 @@
                 <a class="link" href="/">HOME</a>
               </li>
               <li class="nav-item">
-                <a class="link" href="/products">Movies</a>
+                <a class="link" href="/products">MOVIES</a>
               </li>
               <li class="nav-item">
-                <router-link to="/testimonial">Testimonial</router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/contact">Contact</router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/resume">Resume</router-link>
+                <a class="link" href="/admin">ADMIN</a>
               </li>
             </ul>
             <form class="d-flex mt-3" role="search"></form>
