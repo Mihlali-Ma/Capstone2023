@@ -14,6 +14,11 @@
             alt=""
             class="bat"
           />
+          <div class="carousel-caption d-none d-md-block">
+            <h5 style="margin-left: 8rem">The Batman</h5>
+            <p style="margin-left: -20rem">Witness the birth of new hero of justice.</p>
+            <a style="margin-left: -31rem" href="/login">BOOK NOW</a>
+          </div>
         </div>
         <div class="carousel-item">
           <img
@@ -31,7 +36,7 @@
             <p style="margin-left: -11rem">
               To Catch the Prey, You Must Become the Hunter.
             </p>
-            <a href="#">BOOK NOW</a>
+            <a href="/login">BOOK NOW</a>
           </div>
         </div>
         <div class="carousel-item">
@@ -51,7 +56,7 @@
             <p style="margin-left: -5rem">
               Ant-Man and the Wasp Are Back, and They're Going Quantum!
             </p>
-            <a href="#">BOOK NOW</a>
+            <a href="/login">BOOK NOW</a>
           </div>
         </div>
         <div class="carousel-item">
