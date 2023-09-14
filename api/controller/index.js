@@ -6,7 +6,7 @@ const routes = express.Router();
 const { users, products } = require('../model');
 
 // Import your authentication middleware
-// const { verifyAToken } = require('../middleware/AuthenticateUser');
+const { verifyAToken } = require('../middleware/AuthenticateUser');
 
 // === Users Router ===
 
@@ -28,7 +28,7 @@ routes.post('/register', bodyParser.json(), (req, res) => {
 
 // Login
 
-routes.post('/login', bodyParser.json(), (req, res) => {
+routes.post('/login', verifyAToken, (req, res) => {
     users.login(req, res)
 })
 // 
