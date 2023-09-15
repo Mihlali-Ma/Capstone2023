@@ -115,12 +115,55 @@
       </button>
     </div>
     <br />
+    <h3 style="color:#fff">About Us</h3>
+    <p class="text-center" style="width:35rem; color:#fff; margin-left:30rem">At MovieMania, we don't just sell movie tickets; we craft cinematic experiences that ignite your imagination and bring stories to life. In a world where movies are a portal to adventure, emotion, and wonder, MovieMania is your trusted guide.</p>
+    <hr style="color:#fff; font-size:xx-large; margin-left:15rem; margin-right:15rem" >
     <br />
+    <div class="row">
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+          <img src="https://i.etsystatic.com/41234894/r/il/01d73b/5125027974/il_570xN.5125027974_md2d.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-text" style="color:gray">Oppenheimer</h5>
+            <p class="card-text" style="color:yellow">14LV</p>
+          </div>
+        </div>
+      </div>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <img src="https://www.fortressofsolitude.co.za/wp-content/uploads/2023/01/Jaws-movie-poster.jpeg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-text" style="color:gray">JAWS</h5>
+              <p class="card-text" style="color:yellow">16LV</p>
+            </div>
+          </div>
+      </div>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <img src="https://images.saymedia-content.com/.image/t_share/MTg2NzkzMDY5MDYzMjUxNjU1/cakes-takes-on-spider-man-no-way-home-marvel-movie-non-spoiler-review-2021.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-text" style="color:gray">Spider Man No Way Home</h5>
+              <p class="card-text" style="color:yellow">13PG</p>
+            </div>
+          </div>
+      </div>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <img src="https://files.ekmcdn.com/allwallpapers/images/avengers-endgame-from-the-ashes-61x91-5cm-movie-poster-31603-1-p.jpg?v=599d4741-9423-4652-b292-e55e0354b409" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-text" style="color:gray">Avengers Endgame</h5>
+              <p class="card-text" style="color:yellow">13LV</p>
+            </div>
+          </div>
+      </div>
+      </div> 
     <br />
+    <footer-comp/>
   </div>
 </template>
 
 <script>
+import FooterComp from '@/components/FooterComp.vue';
 import NavbarComp from "../components/NavbarComp.vue";
 
 // @ is an alias to /src
@@ -129,6 +172,7 @@ export default {
   name: "HomeView",
   components: {
     NavbarComp,
+    FooterComp,
   },
 };
 </script>
@@ -174,5 +218,21 @@ export default {
   border: 5px solid orangered;
   background: orangered;
   margin-left: -27rem;
+}
+.card{
+  background: #242424;
+  color: #fff;
+  border: none !important;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin-left: 1rem;
+}
+.card-body{
+  background: #242424;
+  border: none;
+  
+}
+.card-img-top{
+  height: 24rem;
+  object-fit: cover;
 }
 </style>
