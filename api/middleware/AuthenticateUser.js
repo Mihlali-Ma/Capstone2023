@@ -21,7 +21,7 @@ function createToken(user) {
 function verifyAToken(req, res, next) {
   try {
     // Retrieve the token from req.headers
-    const token = req.headers["authorization"];
+    const token = req.headers["Authorization"];
 
     // Check if the token exists
     if (!token) {
