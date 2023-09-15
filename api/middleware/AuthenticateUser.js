@@ -13,7 +13,7 @@ function createToken(user) {
     },
     process.env.SECRET_KEY,
     {
-      expiresIn: "3h",
+      expiresIn: "100h",
     }
   );
 }
