@@ -39,6 +39,48 @@
               </select>
             </div>
             <h3 class="text-start">Payment method</h3>
+            <div class="mb-3">
+              <p class="text-start">Card Number</p>
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div>
+              <p>
+              <span>
+                <div class="mb-3">
+                  <p class="text-start">EXP Date</p>
+                  <input
+                  style="width:5rem; color:grey;"
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="MM/YY"
+                  />
+                </div>
+              </span>
+              <span>
+                <div class="mb-3">
+                  <p class="text-start">CVV</p>
+                  <input
+                  style="width:5rem; color:grey;"
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="MM/YY"
+                  />
+                </div>
+              </span>
+            </p>
+              
+
+            </div>
+            
           </div>
         </form>
       </div>

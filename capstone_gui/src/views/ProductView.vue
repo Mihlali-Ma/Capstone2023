@@ -1,8 +1,9 @@
 <template>
   <div>
     <navbar-comp />
+    
     <div class="row" mt-3>
-      <div class="col"></div>
+      <img src="https://4kbluray4u.com/wp-content/uploads/2019/09/collection-2a.jpg"  width="100%" alt="" class="image">
       <div class="row">
         <div class="col" style="margin-left: -3rem">
           <div class="dropdown">
@@ -79,7 +80,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col" v-for="product in filteredProducts" :key="product.movieID">
+      <div class="col md-6" v-for="product in filteredProducts" :key="product.movieID">
         <div class="card" style="border-radius: none">
           <a href="/register">
             <img
@@ -215,7 +216,7 @@ export default {
 
 <style scoped>
 .row {
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 .card {
   margin-top: 2rem;
@@ -289,4 +290,13 @@ a {
     transform: rotate(1800deg);
   }
 }
+.row{
+  width: 100%;
+}
+.image{
+  height: 15rem;
+  width: 100%;
+  object-fit: cover;
+}
+
 </style>

@@ -2,9 +2,9 @@
   <div>
     <navbar-comp />
     <div class="display">
-      <div class="row" style="margin: 0; padding: 0">
+      <div class="row" style="margin: 0; padding: 0" v-for="product in products" :key="product.MovieID">
         <div class="col">
-          <h2 class="text-start" style="color: rebeccapurple">Grand Terismo</h2>
+          <h2 class="text-start" style="color: rebeccapurple">{{ product.MovieName }}</h2>
           <p class="text-start text-wrap" style="color: grey">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam voluptatum,
             dignissimos similique quasi non excepturi rem odit culpa quibusdam aliquid
@@ -56,6 +56,9 @@
 import NavbarComp from "../components/NavbarComp.vue";
 export default {
   components: { NavbarComp },
+  product(){
+    this.$store.dispatch('fetchProduct', movieID);
+  }
 };
 </script>
 
